@@ -19,20 +19,25 @@ class ProductsController < ApplicationController
   def edit
   end
 
-  # POST /products or /products.json
+  # POST /products or /products.jsondef create
   def create
-    @product = Product.new(product_params)
-
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to @product, notice: "Product was successfully created." }
-        format.json { render :show, status: :created, location: @product }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+   @product = Product.new(product_params)
+ 
+   respond_to do |format|
+     if @product.save
+       format.html { redirect_to @product,
+         notice: "Product was successfully created." }
+       format.json { render :show, status: :created,
+         location: @product }
+     else
+       puts @product.errors.full_messages
+       format.html { render :new,
+         status: :unprocessable_entity }
+       format.json { render json: @product.errors,
+         status: :unprocessable_entity }
+     end
+   end
+ end
 
   # PATCH/PUT /products/1 or /products/1.json
   def update
@@ -68,3 +73,4 @@ class ProductsController < ApplicationController
       params.expect(product: [ :title, :description, :image_url, :price ])
     end
 end
+
