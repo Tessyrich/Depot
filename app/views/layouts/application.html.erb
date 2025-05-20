@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Depot" %></title>
+    <title>Pragprog Books Online Store</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+  <body class="bg-gray-100">
+    <header class="bg-green-700 h-32 flex items-center px-8">
+      <div class="flex items-center">
+        <%= image_tag("Product3.jpg", class: "w-20 h-20 rounded shadow") %>
+        <div class="ml-4">
+          <p class="text-gray-200 text-xs">Your Pragmatic Catalog</p>
+          <h1 class="text-white text-2xl font-bold"><%= @page_title %></h1>
+        </div>
+      </div>
+    </header>
+
+    <section class="flex">
+      <nav class="bg-green-900 p-6 min-h-screen">
+      <p class= "text-gray-500 text-semibold"> Page rendered at: <br/> <%= Time.current.strftime("%B %d, %Y %H %M %S") %> </p>
+        <ul class="text-gray-300 leading-8 space-y-2">
+          <li><a href="/" class="hover:text-white">Home</a></li>
+          <li><a href="/questions" class="hover:text-white">Questions</a></li>
+          <li><a href="/news" class="hover:text-white">News</a></li>
+          <li><a href="/contact" class="hover:text-white">Contact</a></li>
+        </ul>
+      </nav>
+      <main class="container mx-auto mt-8 px-8 flex-1">
+        <%= yield %>
+      </main>
+    </section>
   </body>
 </html>

@@ -50,7 +50,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
           description: @product.description,
           image_url: @product.image_url,
           price: @product.price,
-  »        title: @title,
+          title: @title,
         }
       }
   
@@ -64,4 +64,13 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to products_url
   end
+  test "should show product on index page" do
+    get products_url
+    assert_response :success
+    assert_select 'h2', @product.title
+    assert_select 'p', @product.description
+    assert_select 'img[src=?]', @product.image_url
+    assert_select 'p.price', /\$[,\d]+\.\d\d/
+  end
+  test "should not create product with invalid data" do
 end
